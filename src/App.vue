@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <MainHeader/>
-    <router-view :users="users"/>
+    <router-view v-if="!loading"/>
   </div>
 </template>
 
 <script>
 import MainHeader from '@/components/MainHeader.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'App',
@@ -14,11 +15,17 @@ export default {
     MainHeader 
   },
   async beforeMount() {
-    this.users = await this.$store.dispatch('getUsersFromApi');
+    await this.$store.dispatch('getUsersFromApi');
+    this.loading = false;
+  },
+  computed: {
+    ...mapGetters([
+      "getUsers"
+    ])
   },
   data() {
     return {
-      users: []
+      loading: true
     }
   }
 }

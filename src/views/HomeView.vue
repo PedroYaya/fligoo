@@ -29,14 +29,6 @@ export default {
     UserCard,
     DeleteModal
   },
-  props: {
-    users: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
   data() {
     return {
       showDeleteModal: false,

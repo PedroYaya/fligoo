@@ -1,8 +1,7 @@
 <template>
-  <div class="detail" v-if="!loading">
+  <div class="detail">
 
     <MainBreadcrumb/>
-
     <img class="detail-img" :src="user.avatar">
 
     <div class="input-container">
@@ -38,23 +37,17 @@ import MainBreadcrumb from '@/components/MainBreadcrumb.vue';
 
 export default {
   name: 'EditView',
-
   components: {
     MainBreadcrumb
   },
-
   data() {
     return {
-      user: null,
-      loading: true
+      user: null
     }
   },
-
   async beforeMount() {
     this.user = await this.$store.dispatch('getUserById', this.$route.params.id);
-    this.loading = false;
   },
-
   methods: {
     editUser() {
       this.$store.dispatch('editUser', this.user);
