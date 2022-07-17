@@ -1,5 +1,5 @@
 <template>
-  <div class="detail">
+  <div class="detail" v-if="!loading">
 
     <MainBreadcrumb/>
     <img class="detail-img" :src="user.avatar">
@@ -42,11 +42,13 @@ export default {
   },
   data() {
     return {
-      user: null
+      user: null,
+      loading: true
     }
   },
   async beforeMount() {
     this.user = await this.$store.dispatch('getUserById', this.$route.params.id);
+    this.loading = false;
   },
   methods: {
     editUser() {
